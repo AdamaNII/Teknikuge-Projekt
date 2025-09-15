@@ -53,3 +53,9 @@ func _process(delta: float) -> void:
 			targetTile.x += 1
 	
 	$TargetMarker.global_position = targetTile * 16 + Vector2(8, 8)
+	
+	if character == "fire":
+		print(get_parent().find_child("BaseLayer").get_cell_atlas_coords(targetTile))
+		get_parent().getInteractible(Vector2i(0, 0))
+	
+	
