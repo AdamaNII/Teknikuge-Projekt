@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dcnjxsja6tscx"]
 
-[ext_resource type="Script" uid="uid://bavysiw7hnntj" path="res://player_character.gd" id="1_5up26"]
+[ext_resource type="Script" uid="uid://bavysiw7hnntj" path="res://scripts/player_character.gd" id="1_5up26"]
 [ext_resource type="Texture2D" uid="uid://cpffafyu76ykr" path="res://images/character/FireElemental.png" id="2_4akcp"]
 [ext_resource type="Texture2D" uid="uid://deeb3be4em5kj" path="res://images/InteractiblesTilemap.png" id="4_0hvvw"]
 

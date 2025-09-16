@@ -1,0 +1,19 @@
+{
+	"key" : {
+		"A": "stone",
+		"B": "stick"
+	},
+	"pattern": [
+		"AAA",
+		" B ",
+		" B "
+	],
+	"result": {
+		"name": "Stone Pickaxe",
+		"id": "stone_pickaxe",
+		"atlas_coords" : {
+			"x": 1,
+			"y": 4
+		}
+	}
+}
