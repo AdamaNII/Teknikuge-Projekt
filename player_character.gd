@@ -4,12 +4,16 @@ extends CharacterBody2D
 @export var camera: Camera2D
 @export var spritesheet: Texture
 
+@onready var world = get_parent()
+
 var sprite: Sprite2D
 
 var speed = 48
 var facing = "down"
 
-var targetTile: Vector2
+var target_tile: Vector2i
+
+var held_item
 
 func _enter_tree() -> void:
 	sprite = $Sprite2D
@@ -37,25 +41,55 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
+func set_held_item(item = null):
+	held_item = item
+	
+	if item:
+		var atlas_position = item.AtlasPosition
+		$HeldItem.region_rect.position = Vector2(16 * atlas_position.x, 16 * atlas_position.y)
+	else:
+		$HeldItem.region_rect.position = Vector2(-16, -16)
+
+func interact():
+	
+	if target_tile.x < 0 or target_tile.y < 0:
+		return
+	
+	var interactible = world.get_interactible(target_tile)
+	
+	if held_item:
+		if !interactible and world.can_place_interactible(target_tile):
+			world.set_interactible(target_tile, held_item.AtlasPosition, held_item.Name, held_item.Id)
+			set_held_item(null)
+	else:
+		if interactible:
+			set_held_item(interactible)
+			world.clear_interactible(target_tile)
+
 func _process(delta: float) -> void:
 	camera.position = position
-	z_index = position.y
 	
-	targetTile = Vector2(round((position.x - 8)/16), round((position.y)/16))
+	target_tile = Vector2(round((position.x - 8)/16), round((position.y)/16))
 	match facing:
 		"up":
-			targetTile.y -= 1
+			target_tile.y -= 1
 		"down":
-			targetTile.y += 1
+			target_tile.y += 1
 		"left":
-			targetTile.x -= 1
+			target_tile.x -= 1
 		"right":
-			targetTile.x += 1
+			target_tile.x += 1
+			
+	if facing == "up":
+		$HeldItem.visible = false
+	else:
+		$HeldItem.visible = true
 	
-	$TargetMarker.global_position = targetTile * 16 + Vector2(8, 8)
+	$TargetMarker.global_position = target_tile * 16 + Vector2i(8, 8)
 	
 	if character == "fire":
-		print(get_parent().find_child("BaseLayer").get_cell_atlas_coords(targetTile))
-		get_parent().getInteractible(Vector2i(0, 0))
-	
-	
+		if Input.is_action_just_pressed("fire_interact"):
+			interact()
+	elif character == "water":
+		if Input.is_action_just_pressed("water_interact"):
+			interact()

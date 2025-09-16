@@ -2,12 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bavysiw7hnntj" path="res://player_character.gd" id="1_5up26"]
 [ext_resource type="Texture2D" uid="uid://cpffafyu76ykr" path="res://images/character/FireElemental.png" id="2_4akcp"]
-[ext_resource type="Texture2D" uid="uid://cyya2hehaqxag" path="res://icon.svg" id="3_4akcp"]
+[ext_resource type="Texture2D" uid="uid://deeb3be4em5kj" path="res://images/InteractiblesTilemap.png" id="4_0hvvw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0hvvw"]
 size = Vector2(8, 12)
 
 [node name="PlayerCharacter" type="CharacterBody2D"]
+y_sort_enabled = true
 script = ExtResource("1_5up26")
 character = "Fire"
 
@@ -25,4 +26,12 @@ region_rect = Rect2(0, 0, 16, 32)
 [node name="TargetMarker" type="Sprite2D" parent="."]
 position = Vector2(-91, 136)
 scale = Vector2(0.125, 0.125)
-texture = ExtResource("3_4akcp")
+
+[node name="HeldItem" type="Sprite2D" parent="."]
+z_index = 5
+texture_filter = 1
+position = Vector2(0, 3)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("4_0hvvw")
+region_enabled = true
+region_rect = Rect2(-16, 0, 16, 16)
