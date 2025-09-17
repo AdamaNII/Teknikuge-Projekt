@@ -1,0 +1,18 @@
+{
+	"key" : {
+		"F": "fiber",
+	},
+	"pattern": [
+		" F ",
+		"F F",
+		" F "
+	],
+	"result": {
+		"name": "Rope",
+		"id": "rope",
+		"atlas_position" : {
+			"x": 1,
+			"y": 0
+		}
+	}
+}

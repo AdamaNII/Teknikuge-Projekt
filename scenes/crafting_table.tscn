@@ -6,15 +6,8 @@
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_4xt1u")
 
-[node name="InteractiblesTilemap" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, -8)
-texture = ExtResource("2_itlxs")
-region_enabled = true
-region_rect = Rect2(0, 16, 16, 32)
-
-[node name="Slot1Sprite" type="Sprite2D" parent="."]
-z_index = 2
+[node name="Slot0Sprite" type="Sprite2D" parent="."]
+z_index = 110
 texture_filter = 1
 position = Vector2(-4, -11)
 scale = Vector2(0.175, 0.175)
@@ -22,8 +15,8 @@ texture = ExtResource("2_itlxs")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 16)
 
-[node name="Slot2Sprite" type="Sprite2D" parent="."]
-z_index = 2
+[node name="Slot1Sprite" type="Sprite2D" parent="."]
+z_index = 110
 texture_filter = 1
 position = Vector2(0, -11)
 scale = Vector2(0.175, 0.175)
@@ -31,8 +24,8 @@ texture = ExtResource("2_itlxs")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 16)
 
-[node name="Slot3Sprite" type="Sprite2D" parent="."]
-z_index = 2
+[node name="Slot2Sprite" type="Sprite2D" parent="."]
+z_index = 110
 texture_filter = 1
 position = Vector2(4, -11)
 scale = Vector2(0.175, 0.175)
@@ -40,8 +33,8 @@ texture = ExtResource("2_itlxs")
 region_enabled = true
 region_rect = Rect2(16, 0, 16, 16)
 
-[node name="Slot4Sprite" type="Sprite2D" parent="."]
-z_index = 2
+[node name="Slot3Sprite" type="Sprite2D" parent="."]
+z_index = 110
 texture_filter = 1
 position = Vector2(-4, -8)
 scale = Vector2(0.175, 0.175)
@@ -49,8 +42,8 @@ texture = ExtResource("2_itlxs")
 region_enabled = true
 region_rect = Rect2(-16, -16, 16, 16)
 
-[node name="Slot5Sprite" type="Sprite2D" parent="."]
-z_index = 2
+[node name="Slot4Sprite" type="Sprite2D" parent="."]
+z_index = 110
 texture_filter = 1
 position = Vector2(0, -8)
 scale = Vector2(0.175, 0.175)
@@ -58,8 +51,8 @@ texture = ExtResource("2_itlxs")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
-[node name="Slot6Sprite" type="Sprite2D" parent="."]
-z_index = 2
+[node name="Slot5Sprite" type="Sprite2D" parent="."]
+z_index = 110
 texture_filter = 1
 position = Vector2(4, -8)
 scale = Vector2(0.175, 0.175)
@@ -67,8 +60,8 @@ texture = ExtResource("2_itlxs")
 region_enabled = true
 region_rect = Rect2(-16, -16, 16, 16)
 
-[node name="Slot7Sprite" type="Sprite2D" parent="."]
-z_index = 2
+[node name="Slot6Sprite" type="Sprite2D" parent="."]
+z_index = 110
 texture_filter = 1
 position = Vector2(-4, -5)
 scale = Vector2(0.175, 0.175)
@@ -76,8 +69,8 @@ texture = ExtResource("2_itlxs")
 region_enabled = true
 region_rect = Rect2(-16, -16, 16, 16)
 
-[node name="Slot8Sprite" type="Sprite2D" parent="."]
-z_index = 2
+[node name="Slot7Sprite" type="Sprite2D" parent="."]
+z_index = 110
 texture_filter = 1
 position = Vector2(0, -5)
 scale = Vector2(0.175, 0.175)
@@ -85,8 +78,8 @@ texture = ExtResource("2_itlxs")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
 
-[node name="Slot9Sprite" type="Sprite2D" parent="."]
-z_index = 2
+[node name="Slot8Sprite" type="Sprite2D" parent="."]
+z_index = 110
 texture_filter = 1
 position = Vector2(4, -5)
 scale = Vector2(0.175, 0.175)
@@ -94,14 +87,17 @@ texture = ExtResource("2_itlxs")
 region_enabled = true
 region_rect = Rect2(-16, -16, 16, 16)
 
-[node name="Node2D" type="Node2D" parent="."]
-z_index = 1
+[node name="SlotSelector" type="Node2D" parent="."]
+z_index = 125
 position = Vector2(0, -5)
 scale = Vector2(0.125, 0.125)
 
-[node name="ColorRect" type="ColorRect" parent="Node2D"]
+[node name="ColorRect" type="ColorRect" parent="SlotSelector"]
 modulate = Color(1, 1, 0.435294, 0.305882)
 offset_left = -40.0
 offset_top = -56.0
 offset_right = -24.0
 offset_bottom = -40.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(5, 5)

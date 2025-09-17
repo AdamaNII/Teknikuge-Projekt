@@ -11,9 +11,9 @@
 	"result": {
 		"name": "Stone Pickaxe",
 		"id": "stone_pickaxe",
-		"atlas_coords" : {
-			"x": 1,
-			"y": 4
+		"atlas_position" : {
+			"x": 2,
+			"y": 0
 		}
 	}
 }
