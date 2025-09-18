@@ -69,6 +69,10 @@ func _physics_process(delta: float) -> void:
 		facing = "right"
 	
 	move_and_slide()
+	
+	if velocity == Vector2(0, 0):
+		position = Vector2(round(position.x), round(position.y))
+	
 
 func set_held_item(item = null):
 	held_item = item
@@ -119,6 +123,7 @@ func interact():
 			world.clear_interactible(target_tile)
 
 func _process(delta: float) -> void:
+	
 	camera.position = position
 	
 	target_tile = Vector2(round((position.x - 8)/16), round((position.y)/16))

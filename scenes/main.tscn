@@ -1,0 +1,118 @@
+[gd_scene load_steps=8 format=4 uid="uid://ntd8qb6u8ojg"]
+
+[ext_resource type="Script" uid="uid://b2d0lenxcqj5q" path="res://scripts/splitscreen.gd" id="1_o6xl0"]
+[ext_resource type="Script" uid="uid://cun86is17hxnh" path="res://scripts/world.gd" id="2_tipki"]
+[ext_resource type="PackedScene" uid="uid://dcnjxsja6tscx" path="res://scenes/player_character.tscn" id="3_85g3d"]
+[ext_resource type="Texture2D" uid="uid://cpffafyu76ykr" path="res://images/character/FireElemental.png" id="4_choun"]
+[ext_resource type="Texture2D" uid="uid://b5avdbcn65w1f" path="res://images/character/WaterElemental.png" id="5_ya4ey"]
+[ext_resource type="TileSet" uid="uid://cl6ryckw4voti" path="res://tilesets/tile_set.tres" id="6_eb6dy"]
+[ext_resource type="TileSet" uid="uid://hi2cisq3545w" path="res://tilesets/interactibles_tile_set.tres" id="7_trceg"]
+
+[node name="Node2D" type="Node2D"]
+texture_filter = 1
+script = ExtResource("1_o6xl0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FireViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+offset_right = 512.0
+offset_bottom = 512.0
+
+[node name="FireViewport" type="SubViewport" parent="CanvasLayer/FireViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(576, 648)
+render_target_update_mode = 4
+
+[node name="FireCamera" type="Camera2D" parent="CanvasLayer/FireViewportContainer/FireViewport"]
+zoom = Vector2(5, 5)
+limit_left = 0
+limit_top = 0
+limit_right = 512
+limit_bottom = 512
+
+[node name="World" type="Node2D" parent="CanvasLayer/FireViewportContainer/FireViewport"]
+y_sort_enabled = true
+texture_filter = 1
+script = ExtResource("2_tipki")
+
+[node name="FireCharacter" parent="CanvasLayer/FireViewportContainer/FireViewport/World" node_paths=PackedStringArray("camera") instance=ExtResource("3_85g3d")]
+position = Vector2(18, 62)
+scale = Vector2(1.01884, 1)
+collision_mask = 3
+character = "fire"
+camera = NodePath("../../FireCamera")
+spritesheet = ExtResource("4_choun")
+
+[node name="WaterCharacter" parent="CanvasLayer/FireViewportContainer/FireViewport/World" node_paths=PackedStringArray("camera") instance=ExtResource("3_85g3d")]
+position = Vector2(50, 62)
+collision_mask = 5
+character = "water"
+camera = NodePath("../../../../WaterViewportContainer/WaterViewport/WaterCamera")
+spritesheet = ExtResource("5_ya4ey")
+
+[node name="BaseLayer" type="TileMapLayer" parent="CanvasLayer/FireViewportContainer/FireViewport/World"]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAAAAAAAAAKAAYAAAAAAAEAAAAKAAYAAAAAAAIAAAAKAAcAAAAAAAMAAAAHAAYAAAAAAAQAAAAHAAYAAAAAAAUAAAAHAAcAAAAAAAYAAAAAAAAAAAAAAA0AAAABAAYAAAAAAA4AAAABAAYAAAAAAA8AAAAEAAUAAAAAABAAAAAEAAYAAAAAABEAAAAEAAYAAAAAABIAAAAKAAEAAAAAABMAAAAKAAIAAAAAABQAAAAKAAIAAAABAAAAAAAKAAYAAAABAAEAAAAKAAYAAAABAAIAAAAKAAcAAAABAAMAAAAHAAYAAAABAAQAAAAHAAYAAAABAAUAAAAHAAcAAAABAAYAAAAAAAAAAAABAA0AAAABAAYAAAABAA4AAAABAAYAAAABAA8AAAAEAAUAAAABABAAAAAEAAYAAAABABEAAAAEAAYAAAABABIAAAAKAAEAAAABABMAAAAKAAIAAAABABQAAAAKAAIAAAACAAAAAAAKAAYAAAACAAEAAAAKAAYAAAACAAIAAAAKAAcAAAACAAMAAAAHAAYAAAACAAQAAAAHAAYAAAACAAUAAAAHAAcAAAACAAYAAAAAAAAAAAACAA0AAAABAAYAAAACAA4AAAABAAYAAAACAA8AAAAEAAUAAAACABAAAAAEAAYAAAACABEAAAAEAAYAAAACABIAAAAKAAEAAAACABMAAAAKAAIAAAACABQAAAAKAAIAAAADAAAAAAAKAAYAAAADAAEAAAAKAAYAAAADAAIAAAAKAAcAAAADAAMAAAAHAAYAAAADAAQAAAAHAAYAAAADAAUAAAAHAAcAAAADAAYAAAAAAAAAAAADAA0AAAABAAYAAAADAA4AAAABAAYAAAADAA8AAAAEAAUAAAADABAAAAAEAAYAAAADABEAAAAEAAYAAAADABIAAAAKAAEAAAADABMAAAAKAAIAAAADABQAAAAKAAIAAAAEAAAAAAAKAAYAAAAEAAEAAAAKAAYAAAAEAAIAAAAKAAcAAAAEAAMAAAAHAAYAAAAEAAQAAAAHAAYAAAAEAAUAAAAHAAcAAAAEAAYAAAAAAAAAAAAEAA0AAAABAAYAAAAEAA4AAAABAAYAAAAEAA8AAAAEAAUAAAAEABAAAAAEAAYAAAAEABEAAAAEAAYAAAAEABIAAAAKAAEAAAAEABMAAAAKAAIAAAAEABQAAAAKAAIAAAAFAAAAAAAKAAYAAAAFAAEAAAAKAAYAAAAFAAIAAAAKAAcAAAAFAAMAAAAHAAYAAAAFAAQAAAAHAAYAAAAFAAUAAAAHAAcAAAAFAAYAAAAAAAAAAAAFAA0AAAABAAYAAAAFAA4AAAABAAYAAAAFAA8AAAAEAAUAAAAFABAAAAAEAAYAAAAFABEAAAAEAAYAAAAFABIAAAAKAAEAAAAFABMAAAAKAAIAAAAFABQAAAAKAAIAAAAGAAAAAAAKAAYAAAAGAAEAAAAKAAYAAAAGAAIAAAAKAAcAAAAGAAMAAAAHAAYAAAAGAAQAAAAHAAYAAAAGAAUAAAAHAAcAAAAGAAYAAAAAAAAAAAAGAA0AAAABAAYAAAAGAA4AAAABAAYAAAAGAA8AAAAEAAUAAAAGABAAAAAEAAYAAAAGABEAAAAEAAYAAAAGABIAAAAKAAEAAAAGABMAAAAKAAIAAAAGABQAAAAKAAIAAAAAAAcAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAABAAEAAAAAAAoAAAABAAIAAAAAAAsAAAABAAIAAAAAAAwAAAABAAUAAAABAAcAAAAAAAAAAAABAAgAAAAAAAAAAAABAAkAAAABAAEAAAABAAoAAAABAAIAAAABAAsAAAABAAIAAAABAAwAAAABAAUAAAACAAcAAAAAAAAAAAACAAgAAAAAAAAAAAACAAkAAAABAAEAAAACAAoAAAABAAIAAAACAAsAAAABAAIAAAACAAwAAAABAAUAAAADAAcAAAAAAAAAAAADAAgAAAAAAAAAAAADAAkAAAABAAEAAAADAAoAAAABAAIAAAADAAsAAAABAAIAAAADAAwAAAABAAUAAAAEAAcAAAAAAAAAAAAEAAgAAAAAAAAAAAAEAAkAAAABAAEAAAAEAAoAAAABAAIAAAAEAAsAAAABAAIAAAAEAAwAAAABAAUAAAAFAAcAAAAAAAAAAAAFAAgAAAAAAAAAAAAFAAkAAAABAAEAAAAFAAoAAAABAAIAAAAFAAsAAAABAAIAAAAFAAwAAAABAAUAAAAGAAcAAAAAAAAAAAAGAAgAAAAAAAAAAAAGAAkAAAABAAEAAAAGAAoAAAABAAIAAAAGAAsAAAABAAIAAAAGAAwAAAABAAUAAAA=")
+tile_set = ExtResource("6_eb6dy")
+
+[node name="CollisionLayer" type="TileMapLayer" parent="CanvasLayer/FireViewportContainer/FireViewport/World"]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAGAAgAAAADAAEAAAA=")
+tile_set = ExtResource("6_eb6dy")
+
+[node name="ForegroundLayer" type="TileMapLayer" parent="CanvasLayer/FireViewportContainer/FireViewport/World"]
+z_index = 50
+y_sort_enabled = true
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAGAAcAAAADAAAAAAA=")
+tile_set = ExtResource("6_eb6dy")
+
+[node name="InteractiblesCollision" type="TileMapLayer" parent="CanvasLayer/FireViewportContainer/FireViewport/World"]
+texture_filter = 1
+tile_set = ExtResource("7_trceg")
+
+[node name="InteractiblesPreset" type="TileMapLayer" parent="CanvasLayer/FireViewportContainer/FireViewport/World"]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAAAAMAAAABAAAAAAAAAAYAAAACAAAAAAAAAAgAAAACAAAAAAAAABAAAAAAAAAAAAABAAUAAAABAAAAAAABAAcAAAACAAAAAAABAA4AAAABAAAAAAABABEAAAAAAAAAAAACABEAAAAAAAAAAAADABAAAAAAAAAAAAAEAAYAAAACAAAAAAAEAAgAAAACAAAAAAAEABEAAAAAAAAAAAAFAAMAAAABAAAAAAAFAAcAAAACAAAAAAAFAA0AAAABAAAAAAAFABEAAAAAAAAAAAAGAAYAAAACAAAAAAAGABAAAAAAAAAAAAAGAAcAAAAAAAAAAAA=")
+tile_set = ExtResource("7_trceg")
+
+[node name="InteractiblesForeground" type="TileMapLayer" parent="CanvasLayer/FireViewportContainer/FireViewport/World"]
+z_index = 50
+texture_filter = 1
+tile_set = ExtResource("7_trceg")
+
+[node name="WaterViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
+offset_left = 576.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="WaterViewport" type="SubViewport" parent="CanvasLayer/WaterViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(576, 648)
+render_target_update_mode = 4
+
+[node name="WaterCamera" type="Camera2D" parent="CanvasLayer/WaterViewportContainer/WaterViewport"]
+zoom = Vector2(5, 5)
+limit_left = 0
+limit_top = 0
+limit_right = 512
+limit_bottom = 512
+
+[node name="ScreenDivider" type="ColorRect" parent="CanvasLayer"]
+z_index = 1
+custom_minimum_size = Vector2(2, 648)
+offset_left = 574.0
+offset_right = 578.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="GameOverScreen" type="Node2D" parent="CanvasLayer"]
+visible = false
+z_index = 1000
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/GameOverScreen"]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.45098, 0.45098, 0.45098, 0.666667)

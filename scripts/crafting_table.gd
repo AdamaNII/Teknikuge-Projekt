@@ -68,7 +68,15 @@ func load_recipes():
 		
 
 func get_sub_content(start_x, start_y, size_x, size_y):
-	pass
+	var sub_content = {}
+	
+	for i in range(size_y):
+		sub_content[str(i)] = {}
+		
+		for j in range(size_x):
+			sub_content[str(i)][str(j)] = content[str(start_y + i)][str(start_x + j)]
+			
+	return sub_content
 
 func match_recipe(target, recipe) -> bool:
 	for row in recipe.pattern:
@@ -91,18 +99,34 @@ func match_recipe(target, recipe) -> bool:
 			
 	return true
 
+func check_empty_negative(start_x, start_y, size_x, size_y):
+	for i in range(3):
+		for j in range(3):
+			if !(start_x <= i and start_x + (size_x - 1) >= i) or !(start_y <= j and start_y + (size_y - 1) >= j):
+				if content[str(j)][str(i)] != null:
+					return false
+	
+	return true
+	
+
 func get_result():
 	for recipe in recipes_loaded:
-		if recipe.width == 3 and recipe.height == 3:
-			var is_recipe = match_recipe(content, recipe)
-			
-			if is_recipe:
-				var result = recipe.result
-				var atlas_pos = result.atlas_position
+		for i in range(4 - recipe.height):
+			for j in range(4 - recipe.width):
+				var sub_content = get_sub_content(j, i, recipe.width, recipe.height)
 				
-				result.atlas_position = Vector2i(atlas_pos.x, atlas_pos.y)
+				var is_recipe = match_recipe(sub_content, recipe)
 				
-				return result
+				if is_recipe:
+					var excess_slots_empty = check_empty_negative(j, i, recipe.width, recipe.height)
+					
+					if excess_slots_empty:
+						var result = recipe.result
+						var atlas_pos = result.atlas_position
+						
+						result.atlas_position = Vector2i(atlas_pos.x, atlas_pos.y)
+						
+						return result
 	
 	return null
 
@@ -147,8 +171,6 @@ func crafting_interact():
 	
 	occupant_object.set_held_item(content[slot_y][slot_x])
 	content[slot_y][slot_x] = held_item
-	
-	print(held_item)
 	
 	update_sprites()
 	

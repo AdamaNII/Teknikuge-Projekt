@@ -3,9 +3,8 @@
 		"F": "fiber",
 	},
 	"pattern": [
-		" F ",
-		"F F",
-		" F "
+		"FF",
+		"FF"
 	],
 	"result": {
 		"name": "Rope",

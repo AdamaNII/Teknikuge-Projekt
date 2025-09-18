@@ -61,7 +61,7 @@ func _ready() -> void:
 				Vector2i(1, 0):
 					set_interactible(coords, atlasCoords, "Stone", "stone")
 				Vector2i(2, 0):
-					set_interactible(coords, atlasCoords, "Fiber", "fiber")
+					set_interactible(coords, atlasCoords, "Fiber", "fiber")	
 			
 			interactibles_preset.set_cell(coords)
 
