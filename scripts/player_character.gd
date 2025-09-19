@@ -13,6 +13,7 @@ var facing = "down"
 var can_act = true
 
 var target_tile: Vector2i
+var current_tile: Vector2i
 
 var held_item
 
@@ -122,11 +123,30 @@ func interact():
 			set_held_item(interactible)
 			world.clear_interactible(target_tile)
 
+func kill():
+	self.queue_free()
+	get_parent().game_over()
+
 func _process(delta: float) -> void:
 	
 	camera.position = position
 	
-	target_tile = Vector2(round((position.x - 8)/16), round((position.y)/16))
+	current_tile = Vector2(round((position.x - 8)/16), round((position.y)/16))
+	
+	var hazard_type = world.get_hazard_type(current_tile)
+	
+	match hazard_type:
+		1:
+			if character == "fire":
+				kill()
+		2:
+			if character == "water":
+				kill()
+		3:
+			kill()
+	
+	
+	target_tile = current_tile
 	match facing:
 		"up":
 			target_tile.y -= 1

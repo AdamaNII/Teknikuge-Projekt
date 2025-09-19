@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://deb6rnbnmphsy"]
+
+[ext_resource type="Script" uid="uid://c6hs26pbxl6l5" path="res://scripts/collision_flammable.gd" id="1_mwa7x"]
+
+[node name="CollisionFlammable" type="Node2D"]
+script = ExtResource("1_mwa7x")

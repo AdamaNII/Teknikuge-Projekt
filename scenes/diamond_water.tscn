@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4fy0tyghuebx"]
+
+[ext_resource type="Script" uid="uid://ds25gb5yaxluj" path="res://scripts/diamond_water.gd" id="1_phg2p"]
+
+[node name="DiamondWater" type="Node2D"]
+script = ExtResource("1_phg2p")
