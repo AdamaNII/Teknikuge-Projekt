@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://daphinqcqigjj"]
+
+[ext_resource type="Script" uid="uid://dx761c8c28a3o" path="res://scripts/steam_engine_mechanism.gd" id="1_vovo0"]
+
+[node name="SteamEngineMechanism" type="Node2D"]
+script = ExtResource("1_vovo0")

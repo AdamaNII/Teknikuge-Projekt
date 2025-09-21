@@ -1,5 +1,9 @@
 extends Node2D
 
+@export_category("Level Settings")
+@export var enable_tutorial: bool = false
+@export var start_tutorial_stage: String = ""
+
 @onready var interactibles_preset = $InteractiblesPreset
 @onready var interactibles_collision = $InteractiblesCollision
 @onready var interactibles_foreground = $InteractiblesForeground
@@ -11,6 +15,9 @@ extends Node2D
 
 @onready var canvas = get_parent().get_parent().get_parent()
 @onready var main_node = canvas.get_parent()
+
+@export_category("Level Properties")
+@export var level_dimensions: Vector2i
 
 var interactibles: Dictionary = {}
 
@@ -61,10 +68,18 @@ func can_place_interactible(tile) -> bool:
 
 func _enter_tree() -> void:
 	var fire_viewport = get_parent()
-	var water_viewport = fire_viewport.get_parent().get_parent().find_child("WaterViewportContainer").find_child("WaterViewport")
+	var fire_viewport_container = fire_viewport.get_parent()
+	var water_viewport_container = fire_viewport_container.get_parent().find_child("WaterViewportContainer")
+	var water_viewport = water_viewport_container.find_child("WaterViewport")
 	
 	$FireCharacter.camera = fire_viewport.find_child("FireCamera")
 	$WaterCharacter.camera = water_viewport.find_child("WaterCamera")
+	
+	$FireCharacter.tutorial_object = fire_viewport_container.find_child("FireTutorial")
+	$WaterCharacter.tutorial_object = water_viewport_container.find_child("WaterTutorial")
+	
+	$FireCharacter.set_current_stage(start_tutorial_stage, true)
+	$WaterCharacter.set_current_stage(start_tutorial_stage, true)
 
 func _ready() -> void:
 	for x in range(100):
@@ -105,11 +120,35 @@ func _ready() -> void:
 					max_diamonds += 1
 				Vector2i(1, 1):
 					set_interactible(coords, atlasCoords, "Gear", "gear")
+				Vector2i(7, 1):
+					set_interactible(coords, Vector2i(-1, -1), "Tank", "steam_engine_tank", {
+						can_pickup = false,
+						interactible_object = "res://scenes/steam_engine_tank.tscn"
+					})
+				Vector2i(7, 2):
+					set_interactible(coords, Vector2i(-1, -1), "Boiler", "steam_engine_boiler", {
+						can_pickup = false,
+						interactible_object = "res://scenes/steam_engine_boiler.tscn"
+					})
+				Vector2i(7, 3):
+					set_interactible(coords, Vector2i(-1, -1), "Mechanism", "steam_engine_mechanism", {
+						can_pickup = false,
+						interactible_object = "res://scenes/steam_engine_mechanism.tscn"
+					})
 			
 			interactibles_preset.set_cell(coords)
 
+func get_diamond_collected():
+	return collected_diamonds
+
+func get_diamond_max():
+	return  max_diamonds
+
 func diamond_pickup():
 	collected_diamonds += 1
+
+func get_level_dimensions():
+	return level_dimensions
 
 func game_over():
 	if fire_character:

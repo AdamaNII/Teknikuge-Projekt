@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsxn16o0lp1jw"]
+
+[ext_resource type="Script" uid="uid://dhs85otuax6b7" path="res://scripts/steam_engine_boiler.gd" id="1_uuqnn"]
+
+[node name="SteamEngineBoiler" type="Node2D"]
+script = ExtResource("1_uuqnn")

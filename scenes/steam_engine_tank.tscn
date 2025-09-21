@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b45wt4emgy6xd"]
+
+[ext_resource type="Script" uid="uid://cv7mvq2d3luk0" path="res://scripts/steam_engine_tank.gd" id="1_8q0r5"]
+
+[node name="SteamEngineTank" type="Node2D"]
+script = ExtResource("1_8q0r5")

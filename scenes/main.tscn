@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ntd8qb6u8ojg"]
+[gd_scene load_steps=5 format=3 uid="uid://ntd8qb6u8ojg"]
 
 [ext_resource type="Script" uid="uid://b2d0lenxcqj5q" path="res://scripts/main.gd" id="1_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://b0ceeh1m55nis" path="res://images/Tutorial/TutorialFireMovement.png" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://iuvrtg2naywa" path="res://scenes/level_1.tscn" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://djsl1nyfxxidn" path="res://scenes/point_counter.gd" id="4_jyhfs"]
 
 [node name="Main" type="Node2D"]
 texture_filter = 1
@@ -26,8 +28,26 @@ render_target_update_mode = 4
 zoom = Vector2(3, 3)
 limit_left = 0
 limit_top = 0
-limit_right = 1000000
-limit_bottom = 1000000
+limit_right = 544
+limit_bottom = 736
+
+[node name="FireTutorial" type="Node2D" parent="CanvasLayer/FireViewportContainer"]
+
+[node name="TutorialText" type="Label" parent="CanvasLayer/FireViewportContainer/FireTutorial"]
+offset_left = 93.0
+offset_top = 444.0
+offset_right = 476.0
+offset_bottom = 495.0
+text = "Press the W, A, S and D keys to move."
+horizontal_alignment = 1
+
+[node name="TutorialImage" type="TextureRect" parent="CanvasLayer/FireViewportContainer/FireTutorial"]
+offset_left = 239.0
+offset_top = 370.0
+offset_right = 367.0
+offset_bottom = 498.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_jyhfs")
 
 [node name="WaterViewportContainer" type="SubViewportContainer" parent="CanvasLayer"]
 offset_left = 576.0
@@ -44,8 +64,26 @@ render_target_update_mode = 4
 zoom = Vector2(3, 3)
 limit_left = 0
 limit_top = 0
-limit_right = 1000000
-limit_bottom = 1000000
+limit_right = 544
+limit_bottom = 736
+
+[node name="WaterTutorial" type="Node2D" parent="CanvasLayer/WaterViewportContainer"]
+
+[node name="TutorialText" type="Label" parent="CanvasLayer/WaterViewportContainer/WaterTutorial"]
+offset_left = 93.0
+offset_top = 444.0
+offset_right = 476.0
+offset_bottom = 495.0
+text = "Press the W, A, S and D keys to move."
+horizontal_alignment = 1
+
+[node name="TutorialImage" type="TextureRect" parent="CanvasLayer/WaterViewportContainer/WaterTutorial"]
+offset_left = 239.0
+offset_top = 370.0
+offset_right = 367.0
+offset_bottom = 498.0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_jyhfs")
 
 [node name="ScreenDivider" type="ColorRect" parent="CanvasLayer"]
 z_index = 1
@@ -79,5 +117,31 @@ offset_right = 701.0
 offset_bottom = 527.0
 theme_override_font_sizes/font_size = 36
 text = "Try Again"
+
+[node name="PointCounter" type="Node2D" parent="CanvasLayer"]
+z_index = 50
+position = Vector2(576, 0)
+script = ExtResource("4_jyhfs")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PointCounter"]
+offset_left = -127.0
+offset_right = 128.0
+offset_bottom = 85.0
+color = Color(0, 0, 0, 1)
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer/PointCounter"]
+offset_left = -59.0
+offset_top = 3.0
+offset_right = 65.0
+offset_bottom = 26.0
+text = "Gems Collected:"
+
+[node name="ContentLabel" type="Label" parent="CanvasLayer/PointCounter"]
+offset_left = -58.0
+offset_top = 25.0
+offset_right = 66.0
+offset_bottom = 48.0
+text = "x / y"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="CanvasLayer/GameOverScreen/RestartButton" to="." method="_on_restart_button_pressed"]
